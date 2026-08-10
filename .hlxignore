@@ -5,4 +5,5 @@ LICENSE
 package.json
 package-lock.json
 test/*
+drafts/*
 _*

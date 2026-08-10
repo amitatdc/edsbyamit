@@ -54,6 +54,10 @@ async function applyChanges(event) {
     if (block) {
       const blockResource = block.getAttribute('data-aue-resource');
       const newBlock = parsedUpdate.querySelector(`[data-aue-resource="${blockResource}"]`);
+      if (block.dataset.aueModel === 'form') {
+        // adaptive forms re-render themselves, see scripts/form-editor-support.js
+        return true;
+      }
       if (newBlock) {
         newBlock.style.display = 'none';
         block.insertAdjacentElement('afterend', newBlock);
@@ -97,7 +101,7 @@ async function applyChanges(event) {
   return false;
 }
 
-function attachEventListeners(main) {
+async function attachEventListeners(main) {
   [
     'aue:content-patch',
     'aue:content-update',
@@ -111,6 +115,8 @@ function attachEventListeners(main) {
     const applied = await promiseChanges$;
     if (!applied) window.location.reload();
   }));
+  const formEditorSupport = await import('./form-editor-support.js');
+  formEditorSupport.attachEventListners(main);
 }
 
 attachEventListeners(document.querySelector('main'));
