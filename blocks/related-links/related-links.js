@@ -71,7 +71,7 @@ function getIndexUrls() {
     urls.push('/drafts/query-index.json');
   }
   urls.push('/query-index.json');
-  // Author/UE cannot read the Edge Delivery index from the author origin (401).
+  // Prefer public EDS indexes as a fallback when author proxy data is stale.
   if (isAuthorHost()) {
     EDS_INDEX_ORIGINS.forEach((origin) => {
       urls.push(`${origin}/query-index.json`);
@@ -82,11 +82,15 @@ function getIndexUrls() {
 
 /**
  * Load query index data (supports single-sheet JSON).
+ * Same-origin author indexes require cookies; cross-origin EDS indexes use omit.
  * @param {string} indexUrl
  * @returns {Promise<Array<object>>}
  */
 async function loadIndex(indexUrl) {
-  const resp = await fetch(indexUrl, { credentials: 'omit' });
+  const crossOrigin = /^https?:\/\//i.test(indexUrl);
+  const resp = await fetch(indexUrl, {
+    credentials: crossOrigin ? 'omit' : 'same-origin',
+  });
   if (!resp.ok) throw new Error(`Failed to load index: ${indexUrl}`);
   const json = await resp.json();
   if (Array.isArray(json.data)) return json.data;
