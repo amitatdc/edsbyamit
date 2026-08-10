@@ -1,0 +1,50 @@
+<div>
+  <h1>Adaptive Form Test</h1>
+  <p>A locally authored form definition rendered by the <code>form</code> block.</p>
+  <div class="form">
+    <div>
+      <div>
+        <pre><code>{
+  "adaptiveform": "0.14.0",
+  "metadata": { "version": "1.0.0", "grammar": "json-formula-1.0.0" },
+  "id": "contact-us",
+  "fieldType": "form",
+  "title": "Contact Us",
+  "lang": "en",
+  "action": "",
+  "items": [
+    {
+      "id": "first-name",
+      "name": "firstName",
+      "fieldType": "text-input",
+      "required": true,
+      "label": { "value": "First name" }
+    },
+    {
+      "id": "email",
+      "name": "email",
+      "fieldType": "email",
+      "required": true,
+      "label": { "value": "Email address" },
+      "description": "We only use this to reply to your enquiry."
+    },
+    {
+      "id": "enquiry",
+      "name": "enquiry",
+      "fieldType": "multiline-input",
+      "label": { "value": "How can we help?" }
+    },
+    {
+      "id": "submit",
+      "name": "submit",
+      "fieldType": "button",
+      "buttonType": "submit",
+      "label": { "value": "Send enquiry" },
+      "properties": { "fd:buttonType": "submit" }
+    }
+  ]
+}</code></pre>
+      </div>
+    </div>
+  </div>
+</div>
