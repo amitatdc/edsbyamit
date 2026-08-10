@@ -9,7 +9,8 @@
             "resourceType": "core/franklin/components/columns/v1/columns",
             "template": {
               "columns": "2",
-              "rows": "1"
+              "rows": "1",
+              "model": "columns"
             }
           }
         }
@@ -33,6 +34,18 @@
           "name": "rows",
           "value": "",
           "label": "Rows"
+        },
+        {
+          "component": "multiselect",
+          "name": "classes",
+          "label": "Style",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "Action",
+              "value": "action"
+            }
+          ]
         }
       ]
     }

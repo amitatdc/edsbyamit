@@ -33,6 +33,10 @@
             {
               "name": "Highlight",
               "value": "highlight"
+            },
+            {
+              "name": "Action",
+              "value": "action"
             }
           ]
         }
@@ -50,6 +54,9 @@
         "hero",
         "cards",
         "columns",
+        "featured-updates",
+        "quick-links",
+        "cta-banner",
         "fragment",
         "form",
         "embed-adaptive-form"

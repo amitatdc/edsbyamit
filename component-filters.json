@@ -15,6 +15,9 @@
       "hero",
       "cards",
       "columns",
+      "featured-updates",
+      "quick-links",
+      "cta-banner",
       "fragment",
       "form",
       "embed-adaptive-form"
@@ -39,6 +42,12 @@
       "image",
       "button",
       "title"
+    ]
+  },
+  {
+    "id": "featured-updates",
+    "components": [
+      "featured-update-item"
     ]
   },
   {
@@ -69,6 +78,12 @@
       "tnc",
       "wizard",
       "range"
+    ]
+  },
+  {
+    "id": "quick-links",
+    "components": [
+      "quick-link"
     ]
   }
 ]
