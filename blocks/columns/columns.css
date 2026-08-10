@@ -7,6 +7,15 @@
   width: 100%;
 }
 
+.columns.action img {
+  border-radius: 50%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  max-width: 420px;
+  margin: 0 auto;
+  display: block;
+}
+
 .columns > div > div {
   order: 1;
 }
@@ -29,5 +38,20 @@
   .columns > div > div {
     flex: 1;
     order: unset;
+  }
+}
+
+/* Action / take-action split (Figma Contact sections) */
+.columns.action > div {
+  gap: 32px;
+}
+
+.columns.action a {
+  font-weight: 600;
+}
+
+@media (width >= 900px) {
+  .columns.action > div {
+    gap: 48px;
   }
 }

@@ -25,3 +25,25 @@
   aspect-ratio: 4 / 3;
   object-fit: cover;
 }
+
+/* Seasonal highlights — borderless cards */
+.cards.seasonal > ul > li {
+  border: 0;
+  background: transparent;
+}
+
+.cards.seasonal .cards-card-body {
+  margin: 16px 0 0;
+}
+
+.cards.seasonal .cards-card-body p:first-child {
+  margin: 0 0 4px;
+  font-size: var(--body-font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--dark-color);
+}
+
+.cards.seasonal .cards-card-body h3 {
+  margin: 0 0 8px;
+}
