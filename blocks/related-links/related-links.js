@@ -1,32 +1,60 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
 
+const SITE_PREFIXES = ['/content/eba', '/content/edsbyamit'];
+
 /**
  * Normalize authored/index paths for lookup.
+ * Strips .html, trailing slash, and AEM site prefixes.
  * @param {string} path
  * @returns {string}
  */
 function normalizePath(path) {
   if (!path) return '';
+  let pathname = path;
   try {
-    const url = new URL(path, window.location.origin);
-    let { pathname } = url;
-    pathname = pathname.replace(/\.html$/, '').replace(/\/$/, '') || '/';
-    return pathname;
+    pathname = new URL(path, window.location.origin).pathname;
   } catch {
-    return path.replace(/\.html$/, '').replace(/\/$/, '') || '/';
+    // keep raw path
   }
+  pathname = pathname.replace(/\.html$/, '').replace(/\/$/, '') || '/';
+  SITE_PREFIXES.forEach((prefix) => {
+    if (pathname === prefix) pathname = '/';
+    else if (pathname.startsWith(`${prefix}/`)) pathname = pathname.slice(prefix.length) || '/';
+  });
+  return pathname;
 }
 
 /**
- * Resolve which query index to use (local drafts vs production).
- * @returns {string}
+ * Candidate paths used when matching index rows to an authored link.
+ * @param {string} href
+ * @returns {string[]}
  */
-function getIndexUrl() {
-  if (window.location.pathname.startsWith('/drafts/')) {
-    return '/drafts/query-index.json';
+function lookupKeys(href) {
+  const normalized = normalizePath(href);
+  const keys = new Set([normalized]);
+  try {
+    const raw = new URL(href, window.location.origin).pathname
+      .replace(/\.html$/, '')
+      .replace(/\/$/, '') || '/';
+    keys.add(raw);
+  } catch {
+    // ignore
   }
-  return '/query-index.json';
+  return [...keys];
+}
+
+/**
+ * Resolve which query index URLs to try.
+ * @returns {string[]}
+ */
+function getIndexUrls() {
+  const urls = [];
+  if (window.location.pathname.startsWith('/drafts/')) {
+    urls.push('/drafts/query-index.json');
+  }
+  urls.push('/query-index.json');
+  return urls;
 }
 
 /**
@@ -44,17 +72,108 @@ async function loadIndex(indexUrl) {
 }
 
 /**
- * Build a path → record map from index rows.
- * @param {Array<object>} rows
- * @returns {Map<string, object>}
+ * Try each index URL until one succeeds.
+ * @returns {Promise<Map<string, object>>}
  */
-function indexByPath(rows) {
+async function loadIndexMap() {
   const map = new Map();
-  rows.forEach((row) => {
-    const key = normalizePath(row.path);
-    if (key) map.set(key, row);
+  const results = await Promise.all(getIndexUrls().map(async (url) => {
+    try {
+      return await loadIndex(url);
+    } catch {
+      return [];
+    }
+  }));
+  results.flat().forEach((row) => {
+    lookupKeys(row.path || '').forEach((key) => {
+      if (key) map.set(key, row);
+    });
   });
   return map;
+}
+
+/**
+ * Read a meta tag value from a document.
+ * @param {Document} doc
+ * @param {string} selector
+ * @returns {string}
+ */
+function metaContent(doc, selector) {
+  return doc.querySelector(selector)?.getAttribute('content')?.trim() || '';
+}
+
+/**
+ * Build fetch candidates for a linked page.
+ * @param {string} href
+ * @returns {string[]}
+ */
+function pageFetchCandidates(href) {
+  try {
+    const url = new URL(href, window.location.origin);
+    if (!url.pathname.endsWith('.html') && !url.pathname.endsWith('.plain.html')) {
+      return [`${url.pathname}.html`, `${url.pathname}.plain.html`, url.pathname];
+    }
+    return [url.pathname];
+  } catch {
+    return [href];
+  }
+}
+
+/**
+ * Parse title/description/image from HTML markup.
+ * @param {string} html
+ * @param {string} href
+ * @returns {object|null}
+ */
+function recordFromHtml(html, href) {
+  const doc = new DOMParser().parseFromString(html, 'text/html');
+  const title = metaContent(doc, 'meta[property="og:title"]')
+    || metaContent(doc, 'meta[name="title"]')
+    || doc.querySelector('title')?.textContent?.trim()
+    || doc.querySelector('h1')?.textContent?.trim()
+    || '';
+  const description = metaContent(doc, 'meta[name="description"]')
+    || metaContent(doc, 'meta[property="og:description"]')
+    || '';
+  const image = metaContent(doc, 'meta[property="og:image"]')
+    || metaContent(doc, 'meta[name="image"]')
+    || doc.querySelector('main img, .hero img, img')?.getAttribute('src')
+    || '';
+  if (!(title || description || image)) return null;
+  return {
+    path: normalizePath(href),
+    title,
+    description,
+    image,
+  };
+}
+
+/**
+ * Fetch title/description/image from the linked page itself (author/UE/preview).
+ * Used when the query index is missing or incomplete.
+ * @param {string} href
+ * @returns {Promise<object|null>}
+ */
+async function fetchPageRecord(href) {
+  const responses = await Promise.all(pageFetchCandidates(href).map(async (path) => {
+    try {
+      const resp = await fetch(path, { credentials: 'same-origin' });
+      if (!resp.ok) return null;
+      return recordFromHtml(await resp.text(), href);
+    } catch {
+      return null;
+    }
+  }));
+  return responses.find(Boolean) || null;
+}
+
+/**
+ * True when an index row already has the fields we need for a card.
+ * @param {object|undefined} record
+ * @returns {boolean}
+ */
+function isComplete(record) {
+  return Boolean(record?.title && record?.description && record?.image);
 }
 
 /**
@@ -74,6 +193,18 @@ function getAuthoredLinks(block) {
       };
     })
     .filter(Boolean);
+}
+
+/**
+ * Find an index record for a link using normalized path variants.
+ * @param {Map<string, object>} records
+ * @param {string} href
+ * @returns {object|undefined}
+ */
+function findRecord(records, href) {
+  return lookupKeys(href)
+    .map((key) => records.get(key))
+    .find(Boolean);
 }
 
 /**
@@ -125,7 +256,8 @@ function renderCard(item, record) {
 
 /**
  * Related links: authors provide page links only; title/description/image
- * are resolved from the site query index for those pages.
+ * are resolved from the site query index, with a same-origin page fetch fallback
+ * for Universal Editor / unpublished pages.
  * @param {Element} block
  */
 export default async function decorate(block) {
@@ -137,17 +269,31 @@ export default async function decorate(block) {
 
   let records = new Map();
   try {
-    const rows = await loadIndex(getIndexUrl());
-    records = indexByPath(rows);
+    records = await loadIndexMap();
   } catch (e) {
     // eslint-disable-next-line no-console
     console.error('related-links: unable to load query index', e);
   }
 
+  const resolved = await Promise.all(links.map(async (item) => {
+    let record = findRecord(records, item.href);
+    if (!isComplete(record)) {
+      const fetched = await fetchPageRecord(item.href);
+      if (fetched) {
+        record = {
+          title: fetched.title || record?.title,
+          description: fetched.description || record?.description,
+          image: fetched.image || record?.image,
+          path: fetched.path,
+        };
+      }
+    }
+    return { item, record };
+  }));
+
   const ul = document.createElement('ul');
   ul.className = 'related-links-list';
-  links.forEach((item) => {
-    const record = records.get(normalizePath(item.href));
+  resolved.forEach(({ item, record }) => {
     ul.append(renderCard(item, record));
   });
 
