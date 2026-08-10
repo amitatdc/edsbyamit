@@ -1,0 +1,108 @@
+.related-links .related-links-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+.related-links .related-links-item {
+  margin: 0;
+}
+
+.related-links .related-links-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: var(--background-color);
+  border: 1px solid #dadada;
+  overflow: hidden;
+}
+
+.related-links .related-links-image {
+  line-height: 0;
+}
+
+.related-links .related-links-image img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.related-links .related-links-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+  flex: 1;
+}
+
+.related-links .related-links-body h3 {
+  margin: 0;
+  font-size: var(--heading-font-size-s);
+  line-height: 1.25;
+}
+
+.related-links .related-links-body h3 a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.related-links .related-links-body h3 a:hover {
+  color: var(--link-hover-color);
+  text-decoration: underline;
+}
+
+.related-links .related-links-body p {
+  margin: 0;
+  font-size: var(--body-font-size-xs);
+  color: var(--dark-color);
+}
+
+/* Compact grid — mid-page programme tiles */
+.related-links.compact .related-links-card {
+  border: 0;
+  background: transparent;
+}
+
+.related-links.compact .related-links-body {
+  padding: 12px 0 0;
+}
+
+@media (width >= 600px) {
+  .related-links.compact .related-links-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (width >= 900px) {
+  .related-links .related-links-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .related-links.compact .related-links-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .related-links.featured .related-links-list {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+  }
+
+  .related-links.featured .related-links-image img {
+    aspect-ratio: 16 / 9;
+  }
+
+  .related-links.featured .related-links-body {
+    padding: 20px;
+  }
+
+  .related-links.featured .related-links-body h3 {
+    font-size: var(--heading-font-size-m);
+  }
+
+  .related-links.featured .related-links-body p {
+    font-size: var(--body-font-size-s);
+  }
+}
