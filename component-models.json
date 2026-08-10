@@ -5080,5 +5080,38 @@
         "valueType": "string"
       }
     ]
+  },
+  {
+    "id": "related-links",
+    "fields": [
+      {
+        "component": "multiselect",
+        "name": "classes",
+        "label": "Style",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Compact",
+            "value": "compact"
+          },
+          {
+            "name": "Featured",
+            "value": "featured"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "related-link",
+    "fields": [
+      {
+        "component": "aem-content",
+        "name": "link",
+        "label": "Page",
+        "valueType": "string",
+        "description": "Link to an authored page. Title, description, and image are loaded from the query index for that page."
+      }
+    ]
   }
 ]

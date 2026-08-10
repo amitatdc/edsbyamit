@@ -1,0 +1,76 @@
+{
+  "columns": [
+    "path",
+    "title",
+    "description",
+    "image",
+    "lastModified",
+    "robots"
+  ],
+  "data": [
+    {
+      "path": "/drafts/our-work/kakapo-recovery",
+      "title": "Kākāpō Recovery",
+      "description": "Kākāpō Recovery combines the efforts of iwi, rangers, volunteers, scientists and supporters to protect the critically endangered kākāpō.",
+      "image": "/drafts/our-work/media/kakapo.jpg",
+      "lastModified": 1786360121,
+      "robots": ""
+    },
+    {
+      "path": "/drafts/our-work/takahe-recovery-programme",
+      "title": "Takahē Recovery Programme",
+      "description": "Once considered extinct, the story of the takahē is truly unique. Although their numbers are growing, there is still a lot of work to do.",
+      "image": "/drafts/our-work/media/takahe.jpg",
+      "lastModified": 1786360121,
+      "robots": ""
+    },
+    {
+      "path": "/drafts/our-work/whio-forever",
+      "title": "Whio Forever Programme",
+      "description": "The Whio Forever Programme is a partnership between DOC and Genesis to enhance the survival of whio, or blue duck, nationwide.",
+      "image": "/drafts/our-work/media/whio.jpg",
+      "lastModified": 1786360121,
+      "robots": ""
+    },
+    {
+      "path": "/drafts/our-work/protecting-marine-species",
+      "title": "Protecting marine species",
+      "description": "We work to protect marine species including dolphins and sharks.",
+      "image": "/drafts/our-work/media/marine.jpg",
+      "lastModified": 1786360121,
+      "robots": ""
+    },
+    {
+      "path": "/drafts/our-work/save-our-iconic-kiwi",
+      "title": "Save Our Iconic Kiwi",
+      "description": "Kiwi conservation under the banner 'Save our Iconic Kiwi' aims to halt the decline of kiwi numbers.",
+      "image": "/drafts/our-work/media/kiwi.jpg",
+      "lastModified": 1786360121,
+      "robots": ""
+    },
+    {
+      "path": "/drafts/our-work/conservation-dog-programme",
+      "title": "Conservation Dogs Programme",
+      "description": "The Conservation Dogs Programme mentors, certifies and supports a nationwide network of dog-handler teams. These teams detect New Zealand’s protected species or unwanted pests.",
+      "image": "/drafts/our-work/media/conservation-dogs.jpg",
+      "lastModified": 1786360121,
+      "robots": ""
+    },
+    {
+      "path": "/drafts/our-work/conservation-services-programme",
+      "title": "Protected species bycatch",
+      "description": "The Conservation Services Programme (CSP) monitors the impact of commercial fishing on protected species, studies species populations and looks at ways to mitigate bycatch.",
+      "image": "/drafts/our-work/media/csp.jpg",
+      "lastModified": 1786360121,
+      "robots": ""
+    },
+    {
+      "path": "/drafts/our-work/protecting-species",
+      "title": "Species programmes",
+      "description": "These species-specific programmes protect our native wildlife.",
+      "image": "/drafts/our-work/media/kakapo.jpg",
+      "lastModified": 1786360121,
+      "robots": ""
+    }
+  ]
+}

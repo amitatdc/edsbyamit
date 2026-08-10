@@ -17,6 +17,7 @@
       "columns",
       "featured-updates",
       "quick-links",
+      "related-links",
       "cta-banner",
       "fragment",
       "form",
@@ -84,6 +85,12 @@
     "id": "quick-links",
     "components": [
       "quick-link"
+    ]
+  },
+  {
+    "id": "related-links",
+    "components": [
+      "related-link"
     ]
   }
 ]
