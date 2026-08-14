@@ -16,6 +16,7 @@
       "cards",
       "columns",
       "featured-updates",
+      "icon-list",
       "quick-links",
       "related-links",
       "cta-banner",
@@ -79,6 +80,12 @@
       "tnc",
       "wizard",
       "range"
+    ]
+  },
+  {
+    "id": "icon-list",
+    "components": [
+      "icon-list-item"
     ]
   },
   {
