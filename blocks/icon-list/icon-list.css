@@ -25,9 +25,12 @@ main .icon-list .icon-list-icon {
   color: var(--doc-forest);
 }
 
-main .icon-list .icon-list-icon .icon {
+main .icon-list .icon-list-icon .icon,
+main .icon-list .icon-list-icon picture,
+main .icon-list .icon-list-icon img {
   width: 28px;
   height: 28px;
+  object-fit: contain;
 }
 
 main .icon-list .icon-list-body > *:first-child {
@@ -77,7 +80,9 @@ main .icon-list.compact .icon-list-icon {
   height: 40px;
 }
 
-main .icon-list.compact .icon-list-icon .icon {
+main .icon-list.compact .icon-list-icon .icon,
+main .icon-list.compact .icon-list-icon picture,
+main .icon-list.compact .icon-list-icon img {
   width: 20px;
   height: 20px;
 }

@@ -734,7 +734,6 @@
                 "template": {
                   "name": "Icon List Item",
                   "model": "icon-list-item",
-                  "icon": "check-circle",
                   "titleType": "h3"
                 }
               }

@@ -2,8 +2,11 @@
 
 /**
  * Regenerates the options of every `icon` select field in blocks/<name>/_<name>.json
- * from the SVG files in /icons, so the editor's icon picker can never drift from
- * the icons the site actually ships.
+ * from the SVG files in /icons, so a dropdown icon picker can never drift from the
+ * icons the site actually ships.
+ *
+ * Blocks currently pick icons with the DAM asset picker, so this finds nothing to do.
+ * It stays wired up for blocks that use, or go back to, a select field.
  *
  * Run via `npm run build:icons` (also runs as part of `npm run build:json`).
  */
@@ -61,5 +64,9 @@ const options = readIconOptions();
 const updatedFiles = blockModelFiles().filter((file) => applyOptions(file, options));
 
 /* eslint-disable no-console */
-console.log(`icon picker: ${options.length - 1} icons -> ${updatedFiles.length} model file(s)`);
-updatedFiles.forEach((file) => console.log(`  ${path.relative(root, file)}`));
+if (updatedFiles.length === 0) {
+  console.log('icon picker: no select-based icon field found, nothing to generate');
+} else {
+  console.log(`icon picker: ${options.length - 1} icons -> ${updatedFiles.length} model file(s)`);
+  updatedFiles.forEach((file) => console.log(`  ${path.relative(root, file)}`));
+}

@@ -4,12 +4,17 @@ import { moveInstrumentation } from '../../scripts/scripts.js';
 const ICON_NAME = /^[a-z0-9]+(-[a-z0-9]+)*$/;
 
 /**
- * Resolves the icon a cell describes, either an already decorated icon span
- * (`:name:` shorthand in a document) or a bare icon name (icon picker in the editor).
+ * Resolves the icon a cell describes. Authors pick an SVG with the asset picker,
+ * but a decorated span (`:name:` shorthand in a document) or a bare icon name
+ * are both still accepted.
  * @param {Element} cell the candidate icon cell
- * @returns {Element|null} an icon span, or null when the cell holds no icon
+ * @returns {Element|null} the icon element, or null when the cell holds no icon
  */
-function toIconSpan(cell) {
+function toIcon(cell) {
+  // asset picker: keep the authored picture/img as-is, SVGs need no optimization
+  const asset = cell.querySelector('picture, img');
+  if (asset) return asset.closest('picture') || asset;
+
   const authored = cell.querySelector('span.icon');
   if (authored) return authored;
 
@@ -33,7 +38,7 @@ export default function decorate(block) {
     moveInstrumentation(row, li);
 
     const cells = [...row.children];
-    const icon = cells.length > 1 ? toIconSpan(cells[0]) : null;
+    const icon = cells.length > 1 ? toIcon(cells[0]) : null;
     if (icon) {
       cells.shift();
       const iconWrapper = document.createElement('div');
