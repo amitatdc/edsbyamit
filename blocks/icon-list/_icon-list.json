@@ -26,7 +26,6 @@
             "template": {
               "name": "Icon List Item",
               "model": "icon-list-item",
-              "icon": "check-circle",
               "titleType": "h3"
             }
           }
@@ -39,86 +38,20 @@
       "id": "icon-list-item",
       "fields": [
         {
-          "component": "select",
-          "name": "icon",
+          "component": "reference",
+          "name": "image",
           "label": "Icon",
-          "description": "Icons are the SVG files in the project /icons folder",
+          "description": "Pick an SVG from /content/dam/eba/icons",
           "valueType": "string",
-          "value": "",
-          "options": [
-            {
-              "name": "No icon",
-              "value": ""
-            },
-            {
-              "name": "Arrow Right",
-              "value": "arrow-right"
-            },
-            {
-              "name": "Calendar",
-              "value": "calendar"
-            },
-            {
-              "name": "Chat",
-              "value": "chat"
-            },
-            {
-              "name": "Check Circle",
-              "value": "check-circle"
-            },
-            {
-              "name": "Clock",
-              "value": "clock"
-            },
-            {
-              "name": "Document",
-              "value": "document"
-            },
-            {
-              "name": "Download",
-              "value": "download"
-            },
-            {
-              "name": "Globe",
-              "value": "globe"
-            },
-            {
-              "name": "Info",
-              "value": "info"
-            },
-            {
-              "name": "Location",
-              "value": "location"
-            },
-            {
-              "name": "Lock",
-              "value": "lock"
-            },
-            {
-              "name": "Mail",
-              "value": "mail"
-            },
-            {
-              "name": "Phone",
-              "value": "phone"
-            },
-            {
-              "name": "Search",
-              "value": "search"
-            },
-            {
-              "name": "Shield",
-              "value": "shield"
-            },
-            {
-              "name": "Star",
-              "value": "star"
-            },
-            {
-              "name": "User",
-              "value": "user"
-            }
-          ]
+          "multi": false
+        },
+        {
+          "component": "text",
+          "name": "imageAlt",
+          "label": "Icon description",
+          "description": "Leave empty when the icon is decorative",
+          "valueType": "string",
+          "value": ""
         },
         {
           "component": "text",
