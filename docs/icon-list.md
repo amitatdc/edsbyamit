@@ -32,10 +32,8 @@ The same block also accepts an icon that is already decorated, so the `:download
 | [`blocks/icon-list/icon-list.css`](../blocks/icon-list/icon-list.css) | Grid layout, icon chip, `boxed` / `compact` variants |
 | [`blocks/icon-list/_icon-list.json`](../blocks/icon-list/_icon-list.json) | UE definitions, models, filter — contains the icon options |
 | [`tools/icon-options/build-icon-options.mjs`](../tools/icon-options/build-icon-options.mjs) | Regenerates the icon options from `icons/` |
-| [`tools/packages/package-icon-list.mjs`](../tools/packages/package-icon-list.mjs) | Builds the sample page content package |
 | [`models/_section.json`](../models/_section.json) | Allows `icon-list` in sections |
 | [`icons/`](../icons/) | The icon set (24×24 SVG, `stroke="currentColor"`) |
-| [`drafts/icon-list-demo.plain.html`](../drafts/icon-list-demo.plain.html) | Local test content, including the edge cases |
 
 ---
 
@@ -73,22 +71,17 @@ npm run build:json
 
 ---
 
-## Sample page (content package)
+## Sample page
 
-The block needs a real CMS page to be authored in the Universal Editor and previewed on Edge Delivery. Build the package with:
-
-```bash
-npm run package:icon-list
-# → tools/packages/out/eba-icon-list.zip
-```
-
-The package contains one page, `/content/eba/examples/icon-list`, with all three variants and 10 items. The workspace filter merges on `/content/eba/examples` (so an existing tree is left alone) and replaces only the sample page, which makes it safe to reinstall.
+Sample content is **not** kept in this repository. A ready-to-install FileVault package (`eba-icon-list.zip`) is supplied separately and creates one page, `/content/eba/examples/icon-list`, showing all three variants.
 
 1. AEM **Tools → Deployment → Packages → Upload Package**, then **Install**
 2. Open Sites → `examples` → `Icon list` → **Edit** to check the icon dropdown
 3. **Publish** the page
 
-It is then served at `/examples/icon-list` on the preview and live hosts.
+Its workspace filter merges on `/content/eba/examples` and replaces only the sample page, so reinstalling it leaves the rest of the tree alone. Once published the page is served at `/examples/icon-list` on the preview and live hosts.
+
+For local work, any page using the block can be previewed with `aem up --html-folder drafts`.
 
 ---
 
