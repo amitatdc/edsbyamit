@@ -43,7 +43,10 @@
           "label": "Icon",
           "description": "Pick an SVG from /content/dam/eba/icons",
           "valueType": "string",
-          "multi": false
+          "multi": false,
+          "validation": {
+            "rootPath": "/content/dam/eba/icons"
+          }
         },
         {
           "component": "text",
