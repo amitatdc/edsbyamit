@@ -5162,6 +5162,160 @@
     ]
   },
   {
+    "id": "iconpicker-dropdown-item",
+    "fields": [
+      {
+        "component": "select",
+        "name": "icon",
+        "label": "Icon",
+        "description": "Icons are the SVG files in the project /icons folder",
+        "valueType": "string",
+        "value": "",
+        "options": [
+          {
+            "name": "No icon",
+            "value": ""
+          },
+          {
+            "name": "Arrow Right",
+            "value": "arrow-right"
+          },
+          {
+            "name": "Calendar",
+            "value": "calendar"
+          },
+          {
+            "name": "Chat",
+            "value": "chat"
+          },
+          {
+            "name": "Check Circle",
+            "value": "check-circle"
+          },
+          {
+            "name": "Clock",
+            "value": "clock"
+          },
+          {
+            "name": "Document",
+            "value": "document"
+          },
+          {
+            "name": "Download",
+            "value": "download"
+          },
+          {
+            "name": "Globe",
+            "value": "globe"
+          },
+          {
+            "name": "Info",
+            "value": "info"
+          },
+          {
+            "name": "Location",
+            "value": "location"
+          },
+          {
+            "name": "Lock",
+            "value": "lock"
+          },
+          {
+            "name": "Mail",
+            "value": "mail"
+          },
+          {
+            "name": "Phone",
+            "value": "phone"
+          },
+          {
+            "name": "Search",
+            "value": "search"
+          },
+          {
+            "name": "Shield",
+            "value": "shield"
+          },
+          {
+            "name": "Star",
+            "value": "star"
+          },
+          {
+            "name": "User",
+            "value": "user"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "select",
+        "name": "titleType",
+        "label": "Title Type",
+        "valueType": "string",
+        "value": "h3",
+        "options": [
+          {
+            "name": "H2",
+            "value": "h2"
+          },
+          {
+            "name": "H3",
+            "value": "h3"
+          },
+          {
+            "name": "H4",
+            "value": "h4"
+          }
+        ]
+      },
+      {
+        "component": "richtext",
+        "name": "text",
+        "label": "Text",
+        "value": "",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "link",
+        "label": "Link",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "linkText",
+        "label": "Link Text",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "iconpicker-dropdown",
+    "fields": [
+      {
+        "component": "multiselect",
+        "name": "classes",
+        "label": "Style",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Boxed",
+            "value": "boxed"
+          },
+          {
+            "name": "Compact",
+            "value": "compact"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "quick-link",
     "fields": [
       {
