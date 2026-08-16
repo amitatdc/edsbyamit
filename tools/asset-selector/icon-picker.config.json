@@ -1,0 +1,31 @@
+{
+  "repoNames": [
+    "author-p44170-e1385458.adobeaemcloud.com"
+  ],
+  "aemTierType": [
+    "author"
+  ],
+  "rootPath": "/content/dam/eba/icons",
+  "filterSchema": [
+    {
+      "fields": [
+        {
+          "defaultValue": [
+            "image/*"
+          ],
+          "element": "checkbox",
+          "name": "type",
+          "options": [
+            {
+              "label": "Image",
+              "readOnly": true,
+              "value": "image/*"
+            }
+          ]
+        }
+      ],
+      "groupKey": "FileTypeGroup",
+      "header": "File Type"
+    }
+  ]
+}

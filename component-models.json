@@ -5072,15 +5072,17 @@
     "id": "icon-list-item",
     "fields": [
       {
-        "component": "reference",
+        "component": "custom-asset-namespace:custom-asset",
         "name": "image",
         "label": "Icon",
         "description": "Pick an SVG from /content/dam/eba/icons",
-        "valueType": "string",
-        "multi": false,
-        "validation": {
-          "rootPath": "/content/dam/eba/icons"
-        }
+        "configUrl": "/content/dam/eba/icon-picker.config.json",
+        "valueType": "string"
+      },
+      {
+        "component": "custom-asset-namespace:custom-asset-mimetype",
+        "name": "imageMimeType",
+        "valueType": "string"
       },
       {
         "component": "text",

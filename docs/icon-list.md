@@ -1,6 +1,6 @@
 # Icon List block — icon picker for authors
 
-How this project gives authors a **visual pick-one-icon** experience in the Universal Editor, without a custom editor extension.
+How this project gives authors a **visual pick-one-icon** experience in the Universal Editor, without writing a custom editor extension.
 
 Local demo: http://localhost:3000/drafts/icon-list-demo
 
@@ -8,7 +8,7 @@ Local demo: http://localhost:3000/drafts/icon-list-demo
 
 ## How the picker works
 
-The icon field is a `reference` (AEM asset picker) pointing at a DAM folder of SVGs. Clicking it opens the asset selector, so authors browse icon **thumbnails**, search and click one — no file names to remember.
+The icon field opens the AEM asset selector, so authors browse icon **thumbnails**, search and click one — no file names to remember.
 
 ```
 Author picks an SVG in the asset selector
@@ -20,7 +20,11 @@ Author picks an SVG in the asset selector
     same markup, moved into the icon chip          (block JS)
 ```
 
-Universal Editor has no built-in icon-grid widget. A visual grid inside the properties rail is possible — UE's `canvas.getRenderers()` extension point replaces a field's UI with your own iframe, matched on the `component` value in the model — but it requires an Adobe App Builder application with its own deployment and Extension Manager registration. The asset picker gives most of that benefit for none of that cost.
+The field is Adobe's [Custom Content Advisor](https://developer.adobe.com/uix/docs/extension-manager/extension-developed-by-adobe/configurable-asset-picker/), an extension published by Adobe and switched on in Extension Manager — there is no App Builder application to write or deploy. It is the standard asset selector plus a JSON configuration, which is what lets the picker be confined to the icons folder.
+
+A plain `reference` field cannot be confined. `rootPath` validation is documented only for `aem-content` and the fragment pickers; the docs claim `reference` "offers an additional validation type" but list none, and setting `rootPath` on it was verified to do nothing — the selector still opens at **All Assets** and every folder stays browsable. Switching the field to `aem-content` would enforce a root, but its content picker is a path browser with no thumbnails, which defeats the point.
+
+Universal Editor has no built-in icon-grid widget either. A true grid in the properties rail is possible through `canvas.getRenderers()`, which swaps a field's UI for your own iframe, but that does need an App Builder application.
 
 The block also still accepts a decorated `span.icon` (the `:download:` shorthand typed in a document) or a bare icon name, so older content and document authoring keep working.
 
@@ -33,11 +37,28 @@ The block also still accepts a decorated `span.icon` (the `:download:` shorthand
 | [`blocks/icon-list/icon-list.js`](../blocks/icon-list/icon-list.js) | `decorate(block)` — resolves the icon cell, builds the list |
 | [`blocks/icon-list/icon-list.css`](../blocks/icon-list/icon-list.css) | Grid layout, icon chip, `boxed` / `compact` variants |
 | [`blocks/icon-list/_icon-list.json`](../blocks/icon-list/_icon-list.json) | UE definitions, models, filter |
+| [`tools/asset-selector/icon-picker.config.json`](../tools/asset-selector/icon-picker.config.json) | Content Advisor configuration — repository, root path, file-type filter |
 | [`tools/icon-options/build-icon-options.mjs`](../tools/icon-options/build-icon-options.mjs) | Generates dropdown options from `icons/` — dormant, see "Going back to a dropdown" |
 | [`models/_section.json`](../models/_section.json) | Allows `icon-list` in sections |
 | [`icons/`](../icons/) | The icon set (24×24 SVG, `stroke="currentColor"`) |
 
 Icons live in **two** places on purpose: `icons/` in the repository serves the `:name:` shorthand and other blocks, and `/content/dam/eba/icons` in AEM Assets backs the asset picker. Keep them in step.
+
+---
+
+## Setting up the picker
+
+1. Enable **Custom Content Advisor** in Extension Manager for the organisation. Until it is on, the field falls back to the ordinary asset selector, which opens at the DAM root.
+2. Upload `tools/asset-selector/icon-picker.config.json` to `/content/dam/eba/icon-picker.config.json` — the path the `configUrl` in the model points at. Keep it out of the `icons` folder, or it appears in the picker as a selectable file.
+3. Hard-refresh the Universal Editor so it re-fetches `component-models.json`.
+
+Three things are easy to get wrong:
+
+- **`repoNames` is environment-specific.** It lists the AEM author host, so each environment needs its own copy of the config.
+- **The `imageMimeType` field is not optional.** It is what keeps delivery on the Edge Delivery Media Bus, which renders a `<picture>`. Without it the asset arrives as a Dynamic Media OpenAPI URL inside an anchor, which the block does not render as an icon. The field costs no cell: `MimeType`, like `Alt`, collapses into `image` under `xwalk/max-cells`.
+- **Config failures are silent.** If the file cannot be fetched the picker still opens, simply unconfigured. Hosting the config on the EDS site instead — `https://main--edsbyamit--amitatdc.aem.page/tools/asset-selector/icon-picker.config.json` — works too, but then it must be served with `access-control-allow-origin: https://experience.adobe.com` or the browser blocks it as a cross-origin fetch.
+
+The namespace in `custom-asset-namespace:custom-asset` is the extension's default and can be changed with its `asset-namespace` parameter.
 
 ---
 
@@ -87,9 +108,9 @@ For local work, any page using the block can be previewed with `aem up --html-fo
 
 ## Going back to a dropdown
 
-The earlier version of this block used a select field listing the SVG names, generated from `icons/`. It cannot sit alongside the asset picker: the item model is already at the four-cell ceiling enforced by `xwalk/max-cells`, and a fifth field fails lint. JSON has no comments and `_icon-list.json` is machine-written, so the definition is kept here instead.
+The earlier version of this block used a select field listing the SVG names, generated from `icons/`. It cannot sit alongside the asset picker: `icon` is a name of its own, so it becomes a fifth cell and fails the `xwalk/max-cells` limit. JSON has no comments and `_icon-list.json` is machine-written, so the definition is kept here instead.
 
-To revert, replace the `image` and `imageAlt` fields in `blocks/icon-list/_icon-list.json` with this, then run `npm run build:json` — `build:icons` fills in the options and keeps them in step with the folder:
+To revert, replace the `image`, `imageMimeType` and `imageAlt` fields in `blocks/icon-list/_icon-list.json` with this, then run `npm run build:json` — `build:icons` fills in the options and keeps them in step with the folder:
 
 ```json
 {
