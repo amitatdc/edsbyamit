@@ -1,4 +1,4 @@
-main .iconpicker-dropdown ul {
+main .icon-picker-dropdown ul {
   list-style: none;
   display: grid;
   gap: 24px;
@@ -6,14 +6,14 @@ main .iconpicker-dropdown ul {
   padding: 0;
 }
 
-main .iconpicker-dropdown li {
+main .icon-picker-dropdown li {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 12px;
 }
 
-main .iconpicker-dropdown .iconpicker-dropdown-icon {
+main .icon-picker-dropdown .icon-picker-dropdown-icon {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -25,40 +25,40 @@ main .iconpicker-dropdown .iconpicker-dropdown-icon {
   color: var(--doc-forest);
 }
 
-main .iconpicker-dropdown .iconpicker-dropdown-icon .icon {
+main .icon-picker-dropdown .icon-picker-dropdown-icon .icon {
   width: 28px;
   height: 28px;
 }
 
-main .iconpicker-dropdown .iconpicker-dropdown-body > *:first-child {
+main .icon-picker-dropdown .icon-picker-dropdown-body > *:first-child {
   margin-top: 0;
 }
 
-main .iconpicker-dropdown .iconpicker-dropdown-body h2,
-main .iconpicker-dropdown .iconpicker-dropdown-body h3,
-main .iconpicker-dropdown .iconpicker-dropdown-body h4,
-main .iconpicker-dropdown .iconpicker-dropdown-body h5 {
+main .icon-picker-dropdown .icon-picker-dropdown-body h2,
+main .icon-picker-dropdown .icon-picker-dropdown-body h3,
+main .icon-picker-dropdown .icon-picker-dropdown-body h4,
+main .icon-picker-dropdown .icon-picker-dropdown-body h5 {
   font-size: var(--heading-font-size-s);
   margin-bottom: 8px;
 }
 
-main .iconpicker-dropdown .iconpicker-dropdown-body p {
+main .icon-picker-dropdown .icon-picker-dropdown-body p {
   font-size: var(--body-font-size-s);
   margin: 0 0 8px;
 }
 
-main .iconpicker-dropdown .iconpicker-dropdown-body p:last-child {
+main .icon-picker-dropdown .icon-picker-dropdown-body p:last-child {
   margin-bottom: 0;
 }
 
-main .iconpicker-dropdown .iconpicker-dropdown-body a:any-link {
+main .icon-picker-dropdown .icon-picker-dropdown-body a:any-link {
   font-weight: 500;
   text-decoration: underline;
   text-underline-offset: 3px;
 }
 
 /* boxed variant */
-main .iconpicker-dropdown.boxed li {
+main .icon-picker-dropdown.boxed li {
   border: 1px solid var(--light-color);
   border-radius: 12px;
   padding: 24px;
@@ -66,35 +66,35 @@ main .iconpicker-dropdown.boxed li {
 }
 
 /* compact variant places the icon beside the text */
-main .iconpicker-dropdown.compact li {
+main .icon-picker-dropdown.compact li {
   flex-direction: row;
   align-items: flex-start;
   gap: 16px;
 }
 
-main .iconpicker-dropdown.compact .iconpicker-dropdown-icon {
+main .icon-picker-dropdown.compact .icon-picker-dropdown-icon {
   width: 40px;
   height: 40px;
 }
 
-main .iconpicker-dropdown.compact .iconpicker-dropdown-icon .icon {
+main .icon-picker-dropdown.compact .icon-picker-dropdown-icon .icon {
   width: 20px;
   height: 20px;
 }
 
 @media (width >= 600px) {
-  main .iconpicker-dropdown ul {
+  main .icon-picker-dropdown ul {
     grid-template-columns: repeat(2, 1fr);
     gap: 32px;
   }
 }
 
 @media (width >= 900px) {
-  main .iconpicker-dropdown ul {
+  main .icon-picker-dropdown ul {
     grid-template-columns: repeat(3, 1fr);
   }
 
-  main .iconpicker-dropdown.compact ul {
+  main .icon-picker-dropdown.compact ul {
     grid-template-columns: repeat(2, 1fr);
   }
 }

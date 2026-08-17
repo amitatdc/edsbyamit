@@ -4,7 +4,7 @@ How to give authors a pick-one-icon field in the Universal Editor using nothing 
 
 This is one of two working icon pickers in the project. The other is the [asset picker](icon-list.md), and a [custom popup grid](icon-picker-popup-plan.md) is sketched out as a future option.
 
-Local demo: http://localhost:3000/drafts/iconpicker-dropdown-demo
+Local demo: http://localhost:3000/drafts/icon-picker-dropdown-demo
 
 ---
 
@@ -92,15 +92,23 @@ The regex guard is what makes an empty or unexpected cell degrade quietly instea
 
 **5. Allow the block in sections.** Add its id to the `section` filter in [`models/_section.json`](../models/_section.json), otherwise it never appears in the editor's component list.
 
+**6. Keep the template name and the folder name in step.** AEM stores the definition's `template.name` on the block node and lowercases it into the CSS class, which is what EDS uses to find the code:
+
+```
+"name": "Icon Picker Dropdown"  →  class="icon-picker-dropdown"  →  /blocks/icon-picker-dropdown/icon-picker-dropdown.js
+```
+
+Name the block "Icon Picker Dropdown" while the folder is `iconpicker-dropdown` and the script 404s, so the block is inserted but never decorates — an empty div with no error in the editor. Note that the name is copied onto the node when the block is created, so renaming the definition afterwards does not repair blocks that already exist on a page; those have to be deleted and re-added.
+
 ---
 
 ## Files
 
 | File | Role |
 | --- | --- |
-| [`blocks/iconpicker-dropdown/iconpicker-dropdown.js`](../blocks/iconpicker-dropdown/iconpicker-dropdown.js) | `decorate(block)` — resolves the icon cell, builds the list |
-| [`blocks/iconpicker-dropdown/iconpicker-dropdown.css`](../blocks/iconpicker-dropdown/iconpicker-dropdown.css) | Grid layout, icon chip, `boxed` / `compact` variants |
-| [`blocks/iconpicker-dropdown/_iconpicker-dropdown.json`](../blocks/iconpicker-dropdown/_iconpicker-dropdown.json) | UE definitions, models, filter |
+| [`blocks/icon-picker-dropdown/icon-picker-dropdown.js`](../blocks/icon-picker-dropdown/icon-picker-dropdown.js) | `decorate(block)` — resolves the icon cell, builds the list |
+| [`blocks/icon-picker-dropdown/icon-picker-dropdown.css`](../blocks/icon-picker-dropdown/icon-picker-dropdown.css) | Grid layout, icon chip, `boxed` / `compact` variants |
+| [`blocks/icon-picker-dropdown/_icon-picker-dropdown.json`](../blocks/icon-picker-dropdown/_icon-picker-dropdown.json) | UE definitions, models, filter |
 | [`tools/icon-options/build-icon-options.mjs`](../tools/icon-options/build-icon-options.mjs) | Fills the dropdown options from `icons/` |
 | [`icons/`](../icons/) | The icon set (24×24 SVG, `stroke="currentColor"`) |
 
@@ -140,7 +148,7 @@ That is the whole loop — nothing to upload or publish.
 An SVG loaded through `<img>` cannot inherit `currentColor`, so icons render in their own colour on the sage chip. Unlike the asset picker, this block *can* be fixed with a CSS mask, because the icon name — and therefore the URL — is known at decoration time:
 
 ```css
-main .iconpicker-dropdown .iconpicker-dropdown-icon .icon {
+main .icon-picker-dropdown .icon-picker-dropdown-icon .icon {
   background-color: currentColor;
   mask: var(--icon-url) center / contain no-repeat;
 }

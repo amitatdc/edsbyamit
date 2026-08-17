@@ -2,7 +2,7 @@
 
 How to give authors a **visual pick-one-icon** experience in the Universal Editor, browsing thumbnails from a DAM folder, without writing a custom editor extension.
 
-This is one of two working icon pickers in the project. The other is the [dropdown](iconpicker-dropdown.md), which needs no DAM and no environment setup, and a [custom popup grid](icon-picker-popup-plan.md) is sketched out as a future option. The comparison table in the [dropdown doc](iconpicker-dropdown.md#when-to-choose-this-one) covers the trade-off.
+This is one of two working icon pickers in the project. The other is the [dropdown](icon-picker-dropdown.md), which needs no DAM and no environment setup, and a [custom popup grid](icon-picker-popup-plan.md) is sketched out as a future option. The comparison table in the [dropdown doc](icon-picker-dropdown.md#when-to-choose-this-one) covers the trade-off.
 
 Local demo: http://localhost:3000/drafts/icon-list-demo
 

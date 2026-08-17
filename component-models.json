@@ -5162,7 +5162,7 @@
     ]
   },
   {
-    "id": "iconpicker-dropdown-item",
+    "id": "icon-picker-dropdown-item",
     "fields": [
       {
         "component": "select",
@@ -5295,7 +5295,7 @@
     ]
   },
   {
-    "id": "iconpicker-dropdown",
+    "id": "icon-picker-dropdown",
     "fields": [
       {
         "component": "multiselect",

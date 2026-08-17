@@ -2,7 +2,7 @@
 
 A third option for choosing icons, parked for later. Two decisions are still open — see "Open decisions".
 
-The two icon pickers that exist today are [`iconpicker-dropdown`](iconpicker-dropdown.md) and the asset picker on [`icon-list`](icon-list.md).
+The two icon pickers that exist today are [`icon-picker-dropdown`](icon-picker-dropdown.md) and the asset picker on [`icon-list`](icon-list.md).
 
 ## How it works
 

@@ -37,13 +37,13 @@ export default function decorate(block) {
     if (icon) {
       cells.shift();
       const iconWrapper = document.createElement('div');
-      iconWrapper.className = 'iconpicker-dropdown-icon';
+      iconWrapper.className = 'icon-picker-dropdown-icon';
       iconWrapper.append(icon);
       li.append(iconWrapper);
     }
 
     const body = document.createElement('div');
-    body.className = 'iconpicker-dropdown-body';
+    body.className = 'icon-picker-dropdown-body';
     cells.forEach((cell) => body.append(...cell.childNodes));
     li.append(body);
 
@@ -54,7 +54,7 @@ export default function decorate(block) {
   decorateIcons(block);
 
   // an icon name with no matching file in /icons would otherwise show a broken image
-  block.querySelectorAll('.iconpicker-dropdown-icon img').forEach((img) => {
-    img.addEventListener('error', () => img.closest('.iconpicker-dropdown-icon').remove());
+  block.querySelectorAll('.icon-picker-dropdown-icon img').forEach((img) => {
+    img.addEventListener('error', () => img.closest('.icon-picker-dropdown-icon').remove());
   });
 }
