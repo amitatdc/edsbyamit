@@ -741,6 +741,38 @@
           }
         },
         {
+          "title": "Icon Picker Dropdown",
+          "id": "iconpicker-dropdown",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Icon Picker Dropdown",
+                  "model": "iconpicker-dropdown",
+                  "filter": "iconpicker-dropdown"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Icon Picker Dropdown Item",
+          "id": "iconpicker-dropdown-item",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Icon Picker Dropdown Item",
+                  "model": "iconpicker-dropdown-item",
+                  "titleType": "h3"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Quick Links",
           "id": "quick-links",
           "plugins": {

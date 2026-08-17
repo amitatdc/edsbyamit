@@ -1,6 +1,8 @@
-# Icon List block — icon picker for authors
+# Icon picker: asset picker (Icon List block)
 
-How this project gives authors a **visual pick-one-icon** experience in the Universal Editor, without writing a custom editor extension.
+How to give authors a **visual pick-one-icon** experience in the Universal Editor, browsing thumbnails from a DAM folder, without writing a custom editor extension.
+
+This is one of two working icon pickers in the project. The other is the [dropdown](iconpicker-dropdown.md), which needs no DAM and no environment setup, and a [custom popup grid](icon-picker-popup-plan.md) is sketched out as a future option. The comparison table in the [dropdown doc](iconpicker-dropdown.md#when-to-choose-this-one) covers the trade-off.
 
 Local demo: http://localhost:3000/drafts/icon-list-demo
 
@@ -43,6 +45,49 @@ The block also still accepts a decorated `span.icon` (the `:download:` shorthand
 | [`icons/`](../icons/) | The icon set (24×24 SVG, `stroke="currentColor"`) |
 
 Icons live in **two** places on purpose: `icons/` in the repository serves the `:name:` shorthand and other blocks, and `/content/dam/eba/icons` in AEM Assets backs the asset picker. Keep them in step.
+
+---
+
+## Building it yourself
+
+**1. Add the fields.** Three fields make up the icon, and they collapse into a single cell:
+
+```json
+{
+  "component": "custom-asset-namespace:custom-asset",
+  "name": "image",
+  "label": "Icon",
+  "configUrl": "/content/dam/eba/icon-picker.config.json",
+  "valueType": "string"
+},
+{
+  "component": "custom-asset-namespace:custom-asset-mimetype",
+  "name": "imageMimeType",
+  "valueType": "string"
+},
+{
+  "component": "text",
+  "name": "imageAlt",
+  "label": "Icon description",
+  "valueType": "string",
+  "value": ""
+}
+```
+
+`imageMimeType` and `imageAlt` fold into `image` because `MimeType` and `Alt` are collapsible suffixes in `xwalk/max-cells`, so all three cost one cell of the four available.
+
+**2. Write the config.** [`tools/asset-selector/icon-picker.config.json`](../tools/asset-selector/icon-picker.config.json) is what confines the picker. `rootPath` is the folder it opens in and cannot escape; `filterSchema` limits the file types offered.
+
+**3. Take whatever the picker gives you.** The cell arrives as a `<picture>`, so the block reuses it rather than rebuilding it, and deliberately skips `createOptimizedPicture()` since webp and resize variants do not apply to SVG:
+
+```js
+const asset = cell.querySelector('picture, img');
+if (asset) return asset.closest('picture') || asset;
+```
+
+**4. Allow the block in sections.** Add its id to the `section` filter in [`models/_section.json`](../models/_section.json), otherwise it never appears in the editor's component list.
+
+**5. Do the environment setup below.** Unlike the dropdown, the code alone is not enough.
 
 ---
 
