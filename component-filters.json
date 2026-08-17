@@ -17,7 +17,7 @@
       "columns",
       "featured-updates",
       "icon-list",
-      "iconpicker-dropdown",
+      "icon-picker-dropdown",
       "quick-links",
       "related-links",
       "cta-banner",
@@ -90,9 +90,9 @@
     ]
   },
   {
-    "id": "iconpicker-dropdown",
+    "id": "icon-picker-dropdown",
     "components": [
-      "iconpicker-dropdown-item"
+      "icon-picker-dropdown-item"
     ]
   },
   {
