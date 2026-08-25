@@ -1,5 +1,0 @@
-mountpoints:
-  /:
-    url: "https://author-p44170-e112540.adobeaemcloud.com/bin/franklin.delivery/amitatdc/edsbyamit/main"
-    type: "markup"
-    suffix: ".html"
