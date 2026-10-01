@@ -856,6 +856,34 @@
               }
             }
           }
+        },
+        {
+          "title": "Foo",
+          "id": "foo",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/fd/components/form/checkboxgroup/v1/checkboxgroup",
+                "template": {
+                  "jcr:title": "Foo",
+                  "fieldType": "checkbox-group",
+                  "enum": [
+                    "0",
+                    "1",
+                    "3"
+                  ],
+                  "enumNames": [
+                    "Baa",
+                    "Ram",
+                    "Ewe"
+                  ],
+                  "orientation": "horizontal",
+                  "type": "string[]",
+                  "fd:viewType": "foo"
+                }
+              }
+            }
+          }
         }
       ]
     }
