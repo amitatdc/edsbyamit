@@ -22,7 +22,9 @@
               ],
               "orientation": "horizontal",
               "type": "string[]",
-              "fd:viewType": "foo"
+              "fd:viewType": "foo",
+              "enabled": true,
+              "visible": true
             }
           }
         }
